@@ -3,26 +3,25 @@
  *
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
-require('dotenv').config({
+require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 });
-
 
 const strapiConfig = {
   apiURL: process.env.STRAPI_API_URL,
   accessToken: process.env.STRAPI_TOKEN,
-  collectionTypes: [`jobs`,`projects`],
+  collectionTypes: [`jobs`, `projects`, "blogs"],
   singleTypes: [],
 };
 
 module.exports = {
-  siteMetadata:{
-    title:'My New Blog',
-    description: 'This is my one of the awesome blog I made from scratch!'
+  siteMetadata: {
+    title: "My New Blog",
+    description: "This is my one of the awesome blog I made from scratch!",
   },
   /* Your site config here */
   plugins: [
-     {
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
@@ -37,18 +36,18 @@ module.exports = {
       },
     },
     {
-    resolve: `gatsby-source-strapi`,
-    options: strapiConfig,
-  },
-  {
-    resolve: "gatsby-source-graphql",
-    options: {
-      typeName: "STRAPI",
-      fieldName: "strapi",
-      url: "http://localhost:1337/graphql",
+      resolve: `gatsby-source-strapi`,
+      options: strapiConfig,
     },
-  },
-  `gatsby-transformer-sharp`,
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "STRAPI",
+        fieldName: "strapi",
+        url: "http://localhost:1337/graphql",
+      },
+    },
+    `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
   ],
-}
+};

@@ -1,6 +1,7 @@
-// import React from 'react'
-// import { graphql,Link } from 'gatsby'
-// import { Navbar } from '../components/Navbar';
+import React from "react";
+import { graphql, Link } from "gatsby";
+import { Navbar } from "../components/Navbar";
+import Blogs from "../components/Blogs";
 
 // const blog = ({data}) => {
 //     const {posts}=data.blog;
@@ -52,3 +53,46 @@
 //   }
 //   `
 // export default blog
+
+const Blog = ({
+  data: {
+    strapi: {
+      blogs: { data: blogs },
+    },
+  },
+}) => {
+  return (
+    <section className="blog-page">
+      <Navbar />
+      <Blogs blogs={blogs} title="blog" />
+    </section>
+  );
+};
+
+export const query = graphql`
+  {
+    strapi {
+      blogs {
+        data {
+          attributes {
+            slug
+            desc
+            date
+            title
+            category
+            image {
+              data {
+                attributes {
+                  url
+                }
+              }
+            }
+          }
+          id
+        }
+      }
+    }
+  }
+`;
+
+export default Blog;
